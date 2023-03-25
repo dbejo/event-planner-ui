@@ -1,26 +1,43 @@
 <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
     <a class="navbar-brand" href="#">
-        <img src="/assets/logo_purple_elephant.png" height="30vh" class="d-inline-block align-top" alt="">
-        Event Planner
+      <img
+        src="/assets/logo_purple_elephant.png"
+        height="30px"
+        class="d-inline-block align-top"
+        alt=""
+      />
+      Event Planner
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <div class="navbar-nav">
-          <a class="nav-item nav-link" href="#">Event</a>
-          <a class="nav-item nav-link" href="#">Person</a>
-          <a class="nav-item nav-link" href="#">Organization</a>
-          <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown button
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </div>
-        </div>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <div class="navbar-nav ms-auto">
+        <a class="nav-item nav-link" routerLink="/event">Event</a>
+        <a class="nav-item nav-link" routerLink="/person">Person</a>
+        <a class="nav-item nav-link" routerLink="/organization">Organization</a>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            >User</a
+          >
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Login</a></li>
+          </ul>
+        </li>
       </div>
+    </div>
+  </div>
 </nav>
