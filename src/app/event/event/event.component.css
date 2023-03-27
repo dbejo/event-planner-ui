@@ -1,15 +1,14 @@
 .events {
     cursor: pointer;
     border: #fff solid 3px;
-    border-left: #ededed solid 3px;
+    border-bottom: #ededed solid 3px;
     border-radius: 3px;
     min-height: 50px;
-    transition: 0.3s;
+    transition: 0.3s ease-in;
 }
 
 .events:hover {
-    border: #e0e0e0 solid 3px;
-    background-color: #fafafa;
+    border-bottom: #d448d6 solid 3px;
 }
 
 .invitedPeopleHeader {
