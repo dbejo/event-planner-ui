@@ -24,7 +24,7 @@ export class EventComponent implements OnInit {
 
   itemClickHandler(i: number) {
     if (this.detailsToShow.includes(i)) {
-    let indexToSplice = this.detailsToShow.indexOf(i);
+    const indexToSplice = this.detailsToShow.indexOf(i);
     this.detailsToShow.splice(indexToSplice, 1);
     } else {
       this.detailsToShow.push(i)
