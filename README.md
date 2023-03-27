@@ -1,4 +1,5 @@
 # EventPlannerUi
+[![CodeFactor](https://www.codefactor.io/repository/github/dbejo/event-planner-ui/badge)](https://www.codefactor.io/repository/github/dbejo/event-planner-ui)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.4.
 
