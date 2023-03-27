@@ -11,3 +11,8 @@
     border: #e0e0e0 solid 3px;
     background-color: #fafafa;
 }
+
+.invitedPeopleHeader {
+    font-size: medium;
+    margin: 5px 0px 0px 0px;
+}
