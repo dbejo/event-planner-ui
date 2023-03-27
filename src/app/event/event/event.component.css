@@ -1,0 +1,13 @@
+.events {
+    cursor: pointer;
+    border: #fff solid 3px;
+    border-left: #ededed solid 3px;
+    border-radius: 3px;
+    min-height: 50px;
+    transition: 0.3s;
+}
+
+.events:hover {
+    border: #e0e0e0 solid 3px;
+    background-color: #fafafa;
+}
