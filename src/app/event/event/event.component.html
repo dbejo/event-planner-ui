@@ -1,3 +1,26 @@
-<div style="margin-top: 70px">
-    <h1>Event page</h1>
+<div class="col-lg-8 mx-auto mt-5 p-3">
+    <header>
+        <h1>Event page</h1>
+    </header>
+    <main>
+        <div *ngFor="let event of this.events; let i = index" (click)="itemClickHandler(i)">
+            <div class="row events mt-3 mb-3">
+                <div class="col-sm-9 my-auto"><h2>{{event.name}}</h2></div>
+                <div class="col-sm-3 my-auto">{{event.date | date:'fullDate'}}</div>
+            </div>
+        <div class="row" *ngIf="this.detailsToShow.includes(i)">
+            <div class="col-sm-4">Description: {{event.description}}</div>
+            <div class="col-sm-4">Location: {{event.location}}</div>
+            <div class="col-sm-4">Active: {{event.active}}</div>
+        </div>
+        <ng-container *ngIf="this.detailsToShow.includes(i)">
+            <div class="row">
+                <div class="col-sm"><h3 class="invitedPeopleHeader">Invited people</h3></div>
+            </div>
+            <div class="row" *ngFor="let person of event.people">
+                <div class="col-sm">{{person.firstName}} {{person.lastName}}</div>
+            </div>
+        </ng-container>
+    </div>
+    </main>
 </div>
