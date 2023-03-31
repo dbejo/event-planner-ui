@@ -1,4 +1,4 @@
-import { Person } from "src/app/person/person/Person";
+import { Person } from "src/app/person/Person";
 
 export interface Organization {
     id: number;

@@ -1,0 +1,36 @@
+<div class="col-lg-8 mx-auto mt-5 p-3">
+    <header>
+        <h1>Event page</h1>
+    </header>
+    <main>
+        <div *ngFor="let event of this.events; let i = index">
+            <div class="row listHeader mt-3 mb-3" (mouseenter)="isHidden = !isHidden; hoveredItem = i"
+                (mouseleave)="isHidden = !isHidden; hoveredItem = null">
+                <div class="col-sm-9 my-auto" (click)="itemClickHandler(i)">
+                    <h2>{{event.name}}</h2>
+                </div>
+                <div class="col-sm-2 my-auto"(click)="itemClickHandler(i)">{{event.date | date:'fullDate'}}</div>
+                <div class="col-sm-1">
+                    <ng-container *ngIf="isHidden && hoveredItem == i">
+                        <button class="btn btn-outline-danger" (click)="deleteEvent(i, event.id)"><i class="bi bi-trash"></i></button>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="row" *ngIf="this.detailsToShow.includes(i)">
+                <div class="col-sm-4">Description: {{event.description}}</div>
+                <div class="col-sm-4">Location: {{event.location}}</div>
+                <div class="col-sm-4">Active: {{event.active}}</div>
+            </div>
+            <ng-container *ngIf="this.detailsToShow.includes(i)">
+                <div class="row">
+                    <div class="col-sm">
+                        <h3>Invited people</h3>
+                    </div>
+                </div>
+                <div class="row" *ngFor="let person of event.people">
+                    <div class="col-sm">{{person.firstName}} {{person.lastName}}</div>
+                </div>
+            </ng-container>
+        </div>
+    </main>
+</div>

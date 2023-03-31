@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Organization } from './Organization';
+import { Organization } from '../Organization';
 
 @Component({
   selector: 'app-organization',

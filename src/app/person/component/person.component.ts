@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Person } from './Person';
+import { Person } from '../Person';
 
 @Component({
   selector: 'app-person',
