@@ -16,6 +16,16 @@ export class GoogleApiService {
 
   constructor(private readonly oAuthService: OAuthService) { 
     oAuthService.configure(oAuthConfig)
-
+    oAuthService.loadDiscoveryDocumentAndTryLogin().then(() => {
+      oAuthService.tryLoginImplicitFlow().then(() => {
+        if (!oAuthService.hasValidAccessToken()) {
+          oAuthService.initLoginFlow()
+        } else {
+          oAuthService.loadUserProfile().then((userProfile) => {
+            console.log(JSON.stringify(userProfile))
+          })
+        }
+      })
+    })
   }
 }
