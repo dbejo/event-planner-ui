@@ -7,10 +7,16 @@ import { NavbarComponent } from './navbar/navbar/navbar.component';
 import { EventComponent } from './event/event/event.component';
 import { PersonComponent } from './person/person/person.component';
 import { OrganizationComponent } from './organization/organization/organization.component';
+import { OAuthModule } from 'angular-oauth2-oidc';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, EventComponent, PersonComponent, OrganizationComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    OAuthModule.forRoot()
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
