@@ -3,7 +3,7 @@
         <h1>Event page</h1>
     </header>
     <main>
-        <div *ngFor="let event of this.events; let i = index">
+        <div *ngFor="let event of events; let i = index">
             <div class="row listHeader mt-3 mb-3" (mouseenter)="isHidden = !isHidden; hoveredItem = i"
                 (mouseleave)="isHidden = !isHidden; hoveredItem = null">
                 <div class="col-sm-9 my-auto" (click)="itemClickHandler(i)">
@@ -12,7 +12,7 @@
                 <div class="col-sm-2 my-auto"(click)="itemClickHandler(i)">{{event.date | date:'fullDate'}}</div>
                 <div class="col-sm-1">
                     <ng-container *ngIf="isHidden && hoveredItem == i">
-                        <button class="btn btn-outline-danger" (click)="deleteEvent(i, event.id)"><i class="bi bi-trash"></i></button>
+                        <button class="btn btn-outline-danger" (click)="deleteEvent(event)"><i class="bi bi-trash"></i></button>
                     </ng-container>
                 </div>
             </div>

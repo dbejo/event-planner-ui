@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { catchError, map, Observable, of, startWith } from 'rxjs';
-import { AppState } from 'src/app/app-state/app-state';
-import { DataState } from 'src/app/enum/data-state.enum';
-import { Event } from 'src/app/event/Event';
+import { CustomResponse } from 'src/app/custom-response/custom-response';
 import { EventService } from 'src/app/event/service/event.service'
+import { Event } from 'src/app/event/event'
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-event',
@@ -11,34 +10,41 @@ import { EventService } from 'src/app/event/service/event.service'
   styleUrls: ['./event.component.css']
 })
 export class EventComponent implements OnInit {
-  appState$: Observable<AppState<Event[]>>;
+  public events: Event[];
+
   detailsToShow: number[] = [];
   isHidden = false;
   hoveredItem: number | null = null;
+
+  
   constructor(private eventService: EventService) { }
 
   ngOnInit(): void {
-    this.appState$ = this.eventService.events$
-      .pipe(
-        map(response => {
-          return { dataState: DataState.LOADED, data: response }
-        }),
-        startWith({ dataState: DataState.LOADING }),
-        catchError( (error: string) => {
-          return of({ DataState: DataState.ERROR, error})
-        })
-      );
+    this.getEvents();
   }
 
-  deleteEvent(index: number, id: number) {
-    console.log("delete " + id);
-    let confirmation = confirm("You are about to delete an event! Do you wish to proceed?");
-    if (confirmation) {
-      this.hoveredItem = null;
-      
-    } else {
-      this.hoveredItem = null;
-      return;
+  public getEvents(): void {
+    this.eventService.getEvents().subscribe(
+      (response: CustomResponse) => {
+        this.events = response.data.events;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message)
+      }
+    )
+  }
+
+  public deleteEvent(event: Event): void {
+    if(confirm(`You are about to delete ${event.name}. Do you wish to proceed?`)) {
+    this.eventService.deleteEvent(event.id).subscribe(
+      (response: void) => {
+        console.log(response);
+        this.getEvents();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message)
+      }
+    );
     }
   }
 
