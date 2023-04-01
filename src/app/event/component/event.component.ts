@@ -11,12 +11,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class EventComponent implements OnInit {
   public events: Event[];
-
   detailsToShow: number[] = [];
   isHidden = false;
   hoveredItem: number | null = null;
 
-  
   constructor(private eventService: EventService) { }
 
   ngOnInit(): void {

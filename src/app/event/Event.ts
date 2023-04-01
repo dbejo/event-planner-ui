@@ -1,4 +1,4 @@
-import { Person } from "src/app/person/Person";
+import { Person } from "src/app/person/person";
 
 export interface Event {
     "id": number;

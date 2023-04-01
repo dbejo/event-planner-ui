@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { Organization } from '../Organization';
+import { Organization } from '../organization';
+import { CustomResponse } from 'src/app/custom-response/custom-response';
+import { OrganizationService } from '../service/organization.service';
 
 @Component({
   selector: 'app-organization',
@@ -9,17 +10,46 @@ import { Organization } from '../Organization';
   styleUrls: ['./organization.component.css']
 })
 export class OrganizationComponent {
-  private API_URL = environment.apiUrl;
-  organizations?: Organization[];
+  public organizations: Organization[];
   detailsToShow: number[] = [];
-  constructor(private http: HttpClient) {}
+  isHidden = false;
+  hoveredItem: number | null = null;
+
+  constructor(private organizationService: OrganizationService) {}
 
   ngOnInit(): void {
     this.getOrganizations();
   }
 
-  getOrganizations() {
-    return this.http.get<Organization[]>(this.API_URL + "/api/v1/organization/all").subscribe((data) => this.organizations = data)
+  public getOrganizations(): void {
+    this.organizationService.getOrganizations().subscribe(
+      (response: CustomResponse) => {
+        this.organizations = response.data.organizations;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message)
+      }
+    )
+  }
+
+  public deleteOrganization(organization: Organization): void {
+    if (organization.people.length != 0) {
+      alert("Can not delete an organization that has members!");
+      return;
+    }
+    if(confirm(`You are about to delete ${organization.name}. Do you wish to proceed?`)) {
+    this.organizationService.deleteOrganization(organization.id).subscribe(
+      (response: void) => {
+        if (response != null) {
+        console.log(response);
+        }
+        this.getOrganizations();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message)
+      }
+    );
+    }
   }
 
   itemClickHandler(i: number) {

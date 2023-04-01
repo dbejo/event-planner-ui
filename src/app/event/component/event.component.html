@@ -9,10 +9,11 @@
                 <div class="col-sm-9 my-auto" (click)="itemClickHandler(i)">
                     <h2>{{event.name}}</h2>
                 </div>
-                <div class="col-sm-2 my-auto"(click)="itemClickHandler(i)">{{event.date | date:'fullDate'}}</div>
+                <div class="col-sm-2 my-auto" (click)="itemClickHandler(i)">{{event.date | date:'fullDate'}}</div>
                 <div class="col-sm-1">
                     <ng-container *ngIf="isHidden && hoveredItem == i">
-                        <button class="btn btn-outline-danger" (click)="deleteEvent(event)"><i class="bi bi-trash"></i></button>
+                        <button class="btn btn-outline-danger" (click)="deleteEvent(event)"><i
+                                class="bi bi-trash"></i></button>
                     </ng-container>
                 </div>
             </div>

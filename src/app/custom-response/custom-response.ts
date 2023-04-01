@@ -1,6 +1,6 @@
 import { Event } from 'src/app/event/event'
-import { Organization } from '../organization/Organization';
-import { Person } from '../person/Person';
+import { Organization } from '../organization/organization';
+import { Person } from '../person/person';
 
 export interface CustomResponse {
     timeStamp: Date;

@@ -1,7 +1,7 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CustomResponse } from 'src/app/custom-response/custom-response';
 
 @Injectable({
@@ -17,10 +17,5 @@ export class EventService {
 
   deleteEvent(id: number): Observable<void> {
     return this.http.delete<void>(`${this.API_URL}/api/v1/event/${id}`);
-  }
-
-  handleError(error: HttpErrorResponse): Observable<never> {
-    console.log(error);
-    return throwError(`An error occured: ${error.status}`);
   }
 }
