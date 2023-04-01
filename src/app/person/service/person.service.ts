@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CustomResponse } from 'src/app/custom-response/custom-response';
 import { environment } from 'src/environments/environment';
-import { Event } from 'src/app/event/event'
 
 @Injectable({
   providedIn: 'root'
