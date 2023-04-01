@@ -5,7 +5,7 @@
     <main>
         <div *ngFor="let organization of this.organizations; let i = index">
             <div class="row listHeader mt-3 mb-3" (mouseenter)="isHidden = !isHidden; hoveredItem = i"
-            (mouseleave)="isHidden = !isHidden; hoveredItem = null">
+                (mouseleave)="isHidden = !isHidden; hoveredItem = null">
                 <div class="col-sm-11 my-auto" (click)="itemClickHandler(i)">
                     <h2>{{organization.name}}</h2>
                 </div>
