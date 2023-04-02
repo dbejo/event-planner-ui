@@ -1,0 +1,36 @@
+<div class="col-lg-8 mx-auto mt-5 p-3">
+    <header>
+        <h1>Organization page</h1>
+    </header>
+    <main>
+        <div *ngFor="let organization of this.organizations; let i = index">
+            <div class="row listHeader mt-3 mb-3" (mouseenter)="isHidden = !isHidden; hoveredItem = i"
+                (mouseleave)="isHidden = !isHidden; hoveredItem = null">
+                <div class="col-sm-11 my-auto" (click)="itemClickHandler(i)">
+                    <h2>{{organization.name}}</h2>
+                </div>
+                <div class="col-sm-1">
+                    <ng-container *ngIf="isHidden && hoveredItem == i">
+                        <button class="btn btn-outline-danger" (click)="deleteOrganization(organization)"><i
+                                class="bi bi-trash"></i></button>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="row" *ngIf="this.detailsToShow.includes(i)">
+                <div class="col-sm-4">Address: {{organization.address}}</div>
+                <div class="col-sm-4">Active: {{organization.active}}</div>
+                <div class="col-sm-4">Parent organization: {{organization.parent?.name}}</div>
+            </div>
+            <ng-container *ngIf="this.detailsToShow.includes(i)">
+                <div class="row">
+                    <div class="col-sm">
+                        <h3>Members</h3>
+                    </div>
+                </div>
+                <div class="row" *ngFor="let person of organization.people">
+                    <div class="col-sm">{{person.firstName}} {{person.lastName}}</div>
+                </div>
+            </ng-container>
+        </div>
+    </main>
+</div>
