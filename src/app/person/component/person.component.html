@@ -1,0 +1,26 @@
+<div class="col-lg-8 mx-auto mt-5 p-3">
+    <header>
+        <h1>Person page</h1>
+    </header>
+    <main>
+        <div *ngFor="let person of this.people; let i = index">
+            <div class="row listHeader mt-3 mb-3" (mouseenter)="isHidden = !isHidden; hoveredItem = i"
+            (mouseleave)="isHidden = !isHidden; hoveredItem = null">
+                <div class="col-sm-11 my-auto" (click)="itemClickHandler(i)">
+                    <h2>{{person.firstName}} {{person.lastName}}</h2>
+                </div>
+                <div class="col-sm-1">
+                    <ng-container *ngIf="isHidden && hoveredItem == i">
+                        <button class="btn btn-outline-danger" (click)="deletePerson(person)"><i
+                                class="bi bi-trash"></i></button>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="row" *ngIf="this.detailsToShow.includes(i)">
+                <div class="col-sm-4">Notes: {{person.notes}}</div>
+                <div class="col-sm-4">Email: {{person.personalEmail}}</div>
+                <div class="col-sm-4">Active: {{person.active}}</div>
+            </div>
+        </div>
+    </main>
+</div>
