@@ -14,6 +14,7 @@ export class PersonComponent implements OnInit {
   detailsToShow: number[] = [];
   isHidden = false;
   hoveredItem: number | null = null;
+  modal_title: string;
 
   constructor(private personService: PersonService) {}
 
@@ -53,6 +54,10 @@ export class PersonComponent implements OnInit {
     } else {
       this.detailsToShow.push(i)
     }
+  }
+
+  openAddPersonModal() {
+    this.modal_title = "Add person"
   }
 
 }
