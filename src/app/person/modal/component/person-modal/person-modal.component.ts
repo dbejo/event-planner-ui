@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomResponse } from 'src/app/custom-response/custom-response';
 import { Organization } from 'src/app/organization/organization';
 import { OrganizationService } from 'src/app/organization/service/organization.service';
@@ -12,9 +13,24 @@ import { OrganizationService } from 'src/app/organization/service/organization.s
 export class PersonModalComponent implements OnInit {
   @Input() title!: string;
   public organizations: Organization[];
+
+  form = new FormGroup({
+    firstName: new FormControl("", Validators.required),
+    lastName: new FormControl("", Validators.required),
+    email: new FormControl("", Validators.compose([Validators.required, Validators.email])),
+    notes: new FormControl(""),
+    organizations: new FormControl(""),
+    valid: new FormControl("")
+  });
+
   constructor(private organizationService: OrganizationService) {}
   ngOnInit(): void {
     this.getOrganizations();
+  }
+
+  public submit() {
+    console.log("hurray")
+    console.log(this.form);
   }
   
   public getOrganizations(): void {
