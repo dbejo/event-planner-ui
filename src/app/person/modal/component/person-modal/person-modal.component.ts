@@ -24,7 +24,7 @@ export class PersonModalComponent implements OnInit {
       Validators.compose([Validators.required, Validators.email])
     ),
     notes: new FormControl(''),
-    organizations: new FormControl(''),
+    organizations: new FormControl([]),
     active: new FormControl(false),
   });
 
@@ -44,7 +44,14 @@ export class PersonModalComponent implements OnInit {
       notes: this.form.controls.notes.value,
       personalEmail: this.form.controls.email.value,
       active: this.form.controls.active.value,
+      organizations: [],
+      events: [],
     };
+    for (let organization of this.form.controls.organizations.value) {
+      const org: Organization = { id: organization };
+      newPerson.organizations.push(org);
+    }
+    console.log(newPerson);
     this.personComponent.addPerson(newPerson);
   }
 
