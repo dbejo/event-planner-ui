@@ -40,6 +40,27 @@
         <div class="col-sm-4">Email: {{ person.personalEmail }}</div>
         <div class="col-sm-4">Active: {{ person.active }}</div>
       </div>
+      <div class="row" *ngIf="this.detailsToShow.includes(i)">
+        <div class="col-sm" *ngIf="person.organizations.length != 0">
+          Organizations:
+          <ul class="list-group list-group-flush">
+            <li
+              class="list-group-item"
+              *ngFor="let organization of person.organizations"
+            >
+              {{ organization.name }}
+            </li>
+          </ul>
+        </div>
+        <div class="col-sm" *ngIf="person.events.length != 0">
+          Events:
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" *ngFor="let event of person.events">
+              {{ event.name }}
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
     <app-person-modal [title]="modal_title"></app-person-modal>
   </main>

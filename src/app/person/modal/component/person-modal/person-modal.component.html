@@ -88,13 +88,20 @@
             <input
               type="checkbox"
               class="form-check-input"
-              id="checkValid"
-              formControlName="valid"
+              id="checkActive"
+              formControlName="active"
             />
-            <label class="form-check-label" for="checkValid">Active</label>
+            <label class="form-check-label" for="checkActive">Active</label>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+              [ngClass]="form.valid ? 'enabled' : 'disabled'"
+            >
+              Submit
+            </button>
           </div>
         </form>
       </div>

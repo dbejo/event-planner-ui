@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomResponse } from 'src/app/custom-response/custom-response';
-import { EventService } from 'src/app/event/service/event.service'
-import { Event } from 'src/app/event/event'
+import { EventService } from 'src/app/event/service/event.service';
+import { Event } from 'src/app/event/Event';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-event',
   templateUrl: './event.component.html',
-  styleUrls: ['./event.component.css']
+  styleUrls: ['./event.component.css'],
 })
 export class EventComponent implements OnInit {
   public events: Event[];
@@ -15,7 +15,7 @@ export class EventComponent implements OnInit {
   isHidden = false;
   hoveredItem: number | null = null;
 
-  constructor(private eventService: EventService) { }
+  constructor(private eventService: EventService) {}
 
   ngOnInit(): void {
     this.getEvents();
@@ -27,22 +27,24 @@ export class EventComponent implements OnInit {
         this.events = response.data.events;
       },
       (error: HttpErrorResponse) => {
-        alert(error.message)
+        alert(error.message);
       }
-    )
+    );
   }
 
   public deleteEvent(event: Event): void {
-    if(confirm(`You are about to delete ${event.name}. Do you wish to proceed?`)) {
-    this.eventService.deleteEvent(event.id).subscribe(
-      (response: void) => {
-        console.log(response);
-        this.getEvents();
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message)
-      }
-    );
+    if (
+      confirm(`You are about to delete ${event.name}. Do you wish to proceed?`)
+    ) {
+      this.eventService.deleteEvent(event.id).subscribe(
+        (response: void) => {
+          console.log(response);
+          this.getEvents();
+        },
+        (error: HttpErrorResponse) => {
+          alert(error.message);
+        }
+      );
     }
   }
 
@@ -51,8 +53,7 @@ export class EventComponent implements OnInit {
       const indexToSplice = this.detailsToShow.indexOf(i);
       this.detailsToShow.splice(indexToSplice, 1);
     } else {
-      this.detailsToShow.push(i)
+      this.detailsToShow.push(i);
     }
   }
-
 }

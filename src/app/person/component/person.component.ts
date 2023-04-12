@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Person } from '../person';
+import { Person } from '../Person';
 import { PersonService } from '../service/person.service';
 import { CustomResponse } from 'src/app/custom-response/custom-response';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -7,7 +7,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-person',
   templateUrl: './person.component.html',
-  styleUrls: ['./person.component.css']
+  styleUrls: ['./person.component.css'],
 })
 export class PersonComponent implements OnInit {
   people: Person[];
@@ -28,36 +28,51 @@ export class PersonComponent implements OnInit {
         this.people = response.data.people;
       },
       (error: HttpErrorResponse) => {
-        alert(error.message)
+        alert(error.message);
       }
-    )
+    );
   }
 
   public deletePerson(person: Person): void {
-    if(confirm(`You are about to delete ${person.firstName} ${person.lastName}. Do you wish to proceed?`)) {
+    if (
+      confirm(
+        `You are about to delete ${person.firstName} ${person.lastName}. Do you wish to proceed?`
+      )
+    ) {
       this.personService.deletePerson(person.id).subscribe(
         (response: void) => {
           console.log(response);
           this.getPeople();
         },
         (error: HttpErrorResponse) => {
-          alert(error.message)
+          alert(error.message);
         }
       );
+    }
+  }
+
+  public addPerson(person: Person): void {
+    this.personService.addPerson(person).subscribe(
+      (response: CustomResponse) => {
+        console.log(response);
+        this.people.push(response.data.person);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
       }
+    );
   }
 
   itemClickHandler(i: number) {
     if (this.detailsToShow.includes(i)) {
-    const indexToSplice = this.detailsToShow.indexOf(i);
-    this.detailsToShow.splice(indexToSplice, 1);
+      const indexToSplice = this.detailsToShow.indexOf(i);
+      this.detailsToShow.splice(indexToSplice, 1);
     } else {
-      this.detailsToShow.push(i)
+      this.detailsToShow.push(i);
     }
   }
 
   openAddPersonModal() {
-    this.modal_title = "Add person"
+    this.modal_title = 'Add person';
   }
-
 }
