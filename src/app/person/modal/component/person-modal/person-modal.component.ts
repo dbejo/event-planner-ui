@@ -47,9 +47,13 @@ export class PersonModalComponent implements OnInit {
       organizations: [],
       events: [],
     };
-    for (let organization of this.form.controls.organizations.value) {
-      const org: Organization = { id: organization };
-      newPerson.organizations.push(org);
+    for (let orgIndex of this.form.controls.organizations.value) {
+      for (let org of this.organizations) {
+        if (org.id == orgIndex) {
+          const orgToAdd: Organization = { id: org.id, name: org.name };
+          newPerson.organizations.push(orgToAdd);
+        }
+      }
     }
     console.log(newPerson);
     this.personComponent.addPerson(newPerson);
