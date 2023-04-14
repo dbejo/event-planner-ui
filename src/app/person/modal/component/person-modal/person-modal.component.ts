@@ -65,13 +65,13 @@ export class PersonModalComponent implements OnInit {
   }
 
   public getOrganizations(): void {
-    this.organizationService.getOrganizations().subscribe(
-      (response: CustomResponse) => {
+    this.organizationService.getOrganizations().subscribe({
+      next: (response: CustomResponse) => {
         this.organizations = response.data.organizations;
       },
-      (error: HttpErrorResponse) => {
+      error: (error: HttpErrorResponse) => {
         alert(error.message);
-      }
-    );
+      },
+    });
   }
 }

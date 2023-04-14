@@ -4,6 +4,7 @@ import { PersonService } from '../service/person.service';
 import { CustomResponse } from 'src/app/custom-response/custom-response';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PersonModalComponent } from '../modal/component/person-modal/person-modal.component';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-person',
@@ -26,14 +27,14 @@ export class PersonComponent implements OnInit {
   }
 
   public getPeople(): void {
-    this.personService.getPeople().subscribe(
-      (response: CustomResponse) => {
+    this.personService.getPeople().subscribe({
+      next: (response: CustomResponse) => {
         this.people = response.data.people;
       },
-      (error: HttpErrorResponse) => {
+      error: (error: HttpErrorResponse) => {
         alert(error.message);
-      }
-    );
+      },
+    });
   }
 
   public deletePerson(person: Person): void {
@@ -55,26 +56,31 @@ export class PersonComponent implements OnInit {
   }
 
   public addPerson(person: Person): void {
-    this.personService.addPerson(person).subscribe(
-      (response: CustomResponse) => {
-        console.log(response);
-        this.getPeople();
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    );
+    this.personService
+      .addPerson(person)
+      .pipe(switchMap(() => this.personService.getPeople()))
+      .subscribe({
+        complete: () => {
+          this.getPeople();
+        },
+        error: (error: HttpErrorResponse) => {
+          alert(error.message);
+        },
+      });
   }
+
   public modifyPerson(person: Person): void {
-    this.personService.modifyPerson(person).subscribe(
-      (response: CustomResponse) => {
-        console.log(response);
-        this.getPeople();
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    );
+    this.personService
+      .modifyPerson(person)
+      .pipe(switchMap(() => this.personService.getPeople()))
+      .subscribe({
+        complete: () => {
+          this.getPeople();
+        },
+        error: (error: HttpErrorResponse) => {
+          alert(error.message);
+        },
+      });
   }
 
   itemClickHandler(i: number) {
