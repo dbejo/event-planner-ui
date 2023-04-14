@@ -61,7 +61,6 @@ export class PersonModalComponent implements OnInit {
         }
       }
     }
-    console.log(newPerson);
     this.submitPerson.emit(newPerson);
   }
 

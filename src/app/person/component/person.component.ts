@@ -57,7 +57,7 @@ export class PersonComponent implements OnInit {
   public addPerson(person: Person): void {
     this.personService.addPerson(person).subscribe(
       (response: CustomResponse) => {
-        console.log('Add: ' + response);
+        console.log(response);
         this.getPeople();
       },
       (error: HttpErrorResponse) => {
@@ -65,11 +65,10 @@ export class PersonComponent implements OnInit {
       }
     );
   }
-
   public modifyPerson(person: Person): void {
     this.personService.modifyPerson(person).subscribe(
       (response: CustomResponse) => {
-        console.log('Modify: ' + response);
+        console.log(response);
         this.getPeople();
       },
       (error: HttpErrorResponse) => {
@@ -101,10 +100,8 @@ export class PersonComponent implements OnInit {
 
   onPersonSubmitted(person: Person) {
     if (person.id == null) {
-      console.log('add');
       this.addPerson(person);
     } else {
-      console.log('modify');
       this.modifyPerson(person);
     }
   }
