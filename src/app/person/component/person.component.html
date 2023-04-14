@@ -21,13 +21,25 @@
         (mouseenter)="isHidden = !isHidden; hoveredItem = i"
         (mouseleave)="isHidden = !isHidden; hoveredItem = null"
       >
-        <div class="col-sm-11 my-auto" (click)="itemClickHandler(i)">
+        <div class="col-sm-10 my-auto" (click)="itemClickHandler(i)">
           <h2>{{ person.firstName }} {{ person.lastName }}</h2>
         </div>
         <div class="col-sm-1">
           <ng-container *ngIf="isHidden && hoveredItem == i">
             <button
-              class="btn btn-outline-danger"
+              class="btn btn-outline-primary w-100"
+              data-bs-toggle="modal"
+              data-bs-target="#personModal"
+              (click)="openModifyPersonModal(person)"
+            >
+              <i class="bi bi-pencil"></i>
+            </button>
+          </ng-container>
+        </div>
+        <div class="col-sm-1">
+          <ng-container *ngIf="isHidden && hoveredItem == i">
+            <button
+              class="btn btn-outline-danger w-100"
               (click)="deletePerson(person)"
             >
               <i class="bi bi-trash"></i>
@@ -62,6 +74,8 @@
         </div>
       </div>
     </div>
-    <app-person-modal [title]="modal_title"></app-person-modal>
+    <app-person-modal
+      (submitPerson)="onPersonSubmitted($event)"
+    ></app-person-modal>
   </main>
 </div>

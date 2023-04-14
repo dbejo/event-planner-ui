@@ -27,6 +27,13 @@ export class PersonService {
     );
   }
 
+  modifyPerson(person: Person): Observable<CustomResponse> {
+    return this.http.put<CustomResponse>(
+      `${this.API_URL}/api/v1/person`,
+      person
+    );
+  }
+
   getPersonEvents(id: number): Observable<CustomResponse> {
     return this.http.get<CustomResponse>(
       `${this.API_URL}/api/v1/person/${id}/events`

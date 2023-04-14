@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Person } from '../Person';
 import { PersonService } from '../service/person.service';
 import { CustomResponse } from 'src/app/custom-response/custom-response';
 import { HttpErrorResponse } from '@angular/common/http';
+import { PersonModalComponent } from '../modal/component/person-modal/person-modal.component';
 
 @Component({
   selector: 'app-person',
@@ -14,7 +15,9 @@ export class PersonComponent implements OnInit {
   detailsToShow: number[] = [];
   isHidden = false;
   hoveredItem: number | null = null;
-  modal_title: string;
+  person?: Person;
+
+  @ViewChild(PersonModalComponent) personModal: PersonModalComponent;
 
   constructor(private personService: PersonService) {}
 
@@ -54,8 +57,20 @@ export class PersonComponent implements OnInit {
   public addPerson(person: Person): void {
     this.personService.addPerson(person).subscribe(
       (response: CustomResponse) => {
-        console.log(response);
-        this.people.push(response.data.person);
+        console.log('Add: ' + response);
+        this.getPeople();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+  public modifyPerson(person: Person): void {
+    this.personService.modifyPerson(person).subscribe(
+      (response: CustomResponse) => {
+        console.log('Modify: ' + response);
+        this.getPeople();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -73,6 +88,24 @@ export class PersonComponent implements OnInit {
   }
 
   openAddPersonModal() {
-    this.modal_title = 'Add person';
+    this.personModal.title = 'Add person';
+    this.personModal.person = null;
+    this.personModal.initForm();
+  }
+
+  openModifyPersonModal(person: Person) {
+    this.personModal.title = 'Modify person';
+    this.personModal.person = person;
+    this.personModal.initForm();
+  }
+
+  onPersonSubmitted(person: Person) {
+    if (person.id == null) {
+      console.log('add');
+      this.addPerson(person);
+    } else {
+      console.log('modify');
+      this.modifyPerson(person);
+    }
   }
 }
