@@ -8,4 +8,5 @@ export interface Organization {
   address?: string;
   people?: Person[];
   parent?: Organization;
+  parentOrg?: Organization;
 }

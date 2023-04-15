@@ -32,16 +32,12 @@ export class OrganizationComponent {
         this.organizations = response.data.organizations;
       },
       error: (error: HttpErrorResponse) => {
-        alert(error.message);
+        alert(error.error.message);
       },
     });
   }
 
   public deleteOrganization(organization: Organization): void {
-    if (organization.people.length != 0) {
-      alert('Can not delete an organization that has members!');
-      return;
-    }
     if (
       confirm(
         `You are about to delete ${organization.name}. Do you wish to proceed?`
@@ -55,7 +51,7 @@ export class OrganizationComponent {
             this.getOrganizations();
           },
           error: (error: HttpErrorResponse) => {
-            alert(error.message);
+            alert(error.error.message);
           },
         });
     }
@@ -70,7 +66,7 @@ export class OrganizationComponent {
           this.getOrganizations();
         },
         error: (error: HttpErrorResponse) => {
-          alert(error.message);
+          alert(error.error.message);
         },
       });
   }
@@ -84,7 +80,7 @@ export class OrganizationComponent {
           this.getOrganizations();
         },
         error: (error: HttpErrorResponse) => {
-          alert(error.message);
+          alert(error.error.message);
         },
       });
   }

@@ -51,7 +51,7 @@ export class PersonComponent implements OnInit {
             this.getPeople();
           },
           error: (error: HttpErrorResponse) => {
-            alert(error.message);
+            alert(error.error.message);
           },
         });
     }
@@ -66,7 +66,7 @@ export class PersonComponent implements OnInit {
           this.getPeople();
         },
         error: (error: HttpErrorResponse) => {
-          alert(error.message);
+          alert(error.error.message);
         },
       });
   }
@@ -80,7 +80,7 @@ export class PersonComponent implements OnInit {
           this.getPeople();
         },
         error: (error: HttpErrorResponse) => {
-          alert(error.message);
+          alert(error.error.message);
         },
       });
   }

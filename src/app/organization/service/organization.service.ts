@@ -18,12 +18,6 @@ export class OrganizationService {
     );
   }
 
-  getOrganization(id: number): Observable<CustomResponse> {
-    return this.http.get<CustomResponse>(
-      `${this.API_URL}/api/v1/organization/${id}`
-    );
-  }
-
   deleteOrganization(id: number): Observable<void> {
     return this.http.delete<void>(`${this.API_URL}/api/v1/organization/${id}`);
   }

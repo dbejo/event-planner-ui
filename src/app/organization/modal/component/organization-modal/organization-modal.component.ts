@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, map } from 'rxjs';
 import { CustomResponse } from 'src/app/custom-response/custom-response';
 import { Organization } from 'src/app/organization/Organization';
-import { OrganizationDTO } from 'src/app/organization/OrganizationDTO';
 import { OrganizationService } from 'src/app/organization/service/organization.service';
 import { Person } from 'src/app/person/Person';
 import { PersonService } from 'src/app/person/service/person.service';
@@ -24,11 +23,7 @@ export class OrganizationModalComponent {
 
   form: FormGroup;
 
-  constructor(
-    private personService: PersonService,
-    private organizationService: OrganizationService,
-    private fb: FormBuilder
-  ) {}
+  constructor(private personService: PersonService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.initForm();
@@ -46,39 +41,34 @@ export class OrganizationModalComponent {
   }
 
   public submit() {
-    this.getParentOrganization(this.form.get('parent').value).subscribe({
-      next: (parentOrg: Organization) => {
-        const newOrganization: Organization = {
-          id: this.organization?.id || null,
-          name: this.form.get('name').value,
-          parent: parentOrg || null,
-          topLevel: parentOrg?.id == null ? true : false,
-          address: this.form.get('address').value,
-          people: [],
-          active: this.form.get('active').value,
-        };
-        for (const personIndex of this.form.get('people').value) {
-          for (const person of this.people) {
-            if (person.id == personIndex) {
-              const personToAdd: Person = {
-                id: person.id,
-                firstName: person.firstName,
-                lastName: person.lastName,
-                personalEmail: person.personalEmail,
-                active: person.active,
-                organizations: null,
-                events: null,
-              };
-              newOrganization.people.push(personToAdd);
-            }
-          }
+    const parent: Organization = { id: this.form.get('parent').value };
+    const newOrganization: Organization = {
+      id: this.organization?.id || null,
+      name: this.form.get('name').value,
+      parentOrg: parent || null,
+      topLevel: parent.id == null ? true : false,
+      address: this.form.get('address').value,
+      people: [],
+      active: this.form.get('active').value,
+    };
+    for (const personIndex of this.form.get('people').value) {
+      for (const person of this.people) {
+        if (person.id == personIndex) {
+          const personToAdd: Person = {
+            id: person.id,
+            firstName: person.firstName,
+            lastName: person.lastName,
+            personalEmail: person.personalEmail,
+            active: person.active,
+            organizations: null,
+            events: null,
+          };
+          newOrganization.people.push(personToAdd);
         }
-        this.submitOrganization.emit(newOrganization);
-      },
-      error: (error: HttpErrorResponse) => {
-        alert(error.message);
-      },
-    });
+      }
+    }
+    console.log(newOrganization);
+    this.submitOrganization.emit(newOrganization);
   }
 
   public getPeople(): void {
@@ -90,27 +80,5 @@ export class OrganizationModalComponent {
         alert(error.message);
       },
     });
-  }
-
-  public getParentOrganization(id: number): Observable<Organization> {
-    return this.organizationService.getOrganization(id).pipe(
-      map((response: CustomResponse) => response.data.organization),
-      map((organizationDto: OrganizationDTO) => {
-        const people: Person[] = organizationDto.peopleIds.map((personId) => ({
-          id: personId,
-        }));
-        return {
-          id: organizationDto.id,
-          name: organizationDto.name,
-          parent: organizationDto.parentId
-            ? { id: organizationDto.parentId }
-            : null,
-          topLevel: organizationDto.topLevel,
-          address: organizationDto.address,
-          people: people,
-          active: organizationDto.active,
-        } as Organization;
-      })
-    );
   }
 }

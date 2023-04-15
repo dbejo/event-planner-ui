@@ -85,7 +85,7 @@ export class PersonModalComponent implements OnInit {
         this.organizations = response.data.organizations;
       },
       error: (error: HttpErrorResponse) => {
-        alert(error.message);
+        alert(error.error.message);
       },
     });
   }
@@ -96,7 +96,7 @@ export class PersonModalComponent implements OnInit {
         this.events = response.data.events;
       },
       error: (error: HttpErrorResponse) => {
-        alert(error.message);
+        alert(error.error.message);
       },
     });
   }
