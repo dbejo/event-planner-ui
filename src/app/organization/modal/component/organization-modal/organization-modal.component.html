@@ -1,0 +1,95 @@
+<div class="modal fade" id="organizationModal" tabindex="1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ title }}</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="form" (ngSubmit)="submit()">
+          <div class="form-group m-3">
+            <label for="inputName">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputName"
+              placeholder="Name"
+              required
+              formControlName="name"
+              [ngClass]="form.get('name').invalid ? 'is-invalid' : 'is-valid'"
+            />
+          </div>
+          <div class="form-group m-3">
+            <label for="inputAddress">Address</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputAddress"
+              placeholder="Address"
+              required
+              formControlName="address"
+              [ngClass]="
+                form.get('address').invalid ? 'is-invalid' : 'is-valid'
+              "
+            />
+          </div>
+          <div class="form-group m-3">
+            <label for="selectPeople">People</label>
+            <select
+              class="form-select"
+              id="selectPeople"
+              formControlName="people"
+              [multiple]="true"
+            >
+              <ng-container *ngFor="let person of people">
+                <option [value]="person.id">
+                  {{ person.firstName }} {{ person.lastName }}
+                </option>
+              </ng-container>
+            </select>
+          </div>
+          <div class="form-group m-3">
+            <label for="selectParent">Parent</label>
+            <select
+              class="form-select"
+              id="selectParent"
+              placeholder="Parent"
+              formControlName="parent"
+            >
+              <option value="null">None</option>
+              <ng-container *ngFor="let org of organizations">
+                <option [value]="org.id">
+                  {{ org.name }}
+                </option>
+              </ng-container>
+            </select>
+          </div>
+          <div class="form-check m-3">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="checkActive"
+              formControlName="active"
+            />
+            <label class="form-check-label" for="checkActive">Active</label>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+              [ngClass]="form.valid ? 'enabled' : 'disabled'"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

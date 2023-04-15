@@ -1,8 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Organization } from '../Organization';
 import { CustomResponse } from 'src/app/custom-response/custom-response';
 import { OrganizationService } from '../service/organization.service';
+import { OrganizationModalComponent } from '../modal/component/organization-modal/organization-modal.component';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-organization',
@@ -15,6 +17,9 @@ export class OrganizationComponent {
   isHidden = false;
   hoveredItem: number | null = null;
 
+  @ViewChild(OrganizationModalComponent)
+  organizationModal: OrganizationModalComponent;
+
   constructor(private organizationService: OrganizationService) {}
 
   ngOnInit(): void {
@@ -22,14 +27,14 @@ export class OrganizationComponent {
   }
 
   public getOrganizations(): void {
-    this.organizationService.getOrganizations().subscribe(
-      (response: CustomResponse) => {
+    this.organizationService.getOrganizations().subscribe({
+      next: (response: CustomResponse) => {
         this.organizations = response.data.organizations;
       },
-      (error: HttpErrorResponse) => {
+      error: (error: HttpErrorResponse) => {
         alert(error.message);
-      }
-    );
+      },
+    });
   }
 
   public deleteOrganization(organization: Organization): void {
@@ -42,18 +47,46 @@ export class OrganizationComponent {
         `You are about to delete ${organization.name}. Do you wish to proceed?`
       )
     ) {
-      this.organizationService.deleteOrganization(organization.id).subscribe(
-        (response: void) => {
-          if (response != null) {
-            console.log(response);
-          }
+      this.organizationService
+        .deleteOrganization(organization.id)
+        .pipe(switchMap(() => this.organizationService.getOrganizations()))
+        .subscribe({
+          complete: () => {
+            this.getOrganizations();
+          },
+          error: (error: HttpErrorResponse) => {
+            alert(error.message);
+          },
+        });
+    }
+  }
+
+  public addOrganization(organization: Organization): void {
+    this.organizationService
+      .addOrganization(organization)
+      .pipe(switchMap(() => this.organizationService.getOrganizations()))
+      .subscribe({
+        complete: () => {
           this.getOrganizations();
         },
-        (error: HttpErrorResponse) => {
+        error: (error: HttpErrorResponse) => {
           alert(error.message);
-        }
-      );
-    }
+        },
+      });
+  }
+
+  public modifyOrganization(organization: Organization): void {
+    this.organizationService
+      .modifyOrganization(organization)
+      .pipe(switchMap(() => this.organizationService.getOrganizations()))
+      .subscribe({
+        complete: () => {
+          this.getOrganizations();
+        },
+        error: (error: HttpErrorResponse) => {
+          alert(error.message);
+        },
+      });
   }
 
   itemClickHandler(i: number) {
@@ -62,6 +95,26 @@ export class OrganizationComponent {
       this.detailsToShow.splice(indexToSplice, 1);
     } else {
       this.detailsToShow.push(i);
+    }
+  }
+
+  openAddOrganizationModal() {
+    this.organizationModal.title = 'Add Organization';
+    this.organizationModal.organization = null;
+    this.organizationModal.initForm();
+  }
+
+  openModifyOrganizationModal(organization: Organization) {
+    this.organizationModal.title = 'Modify Organization';
+    this.organizationModal.organization = organization;
+    this.organizationModal.initForm();
+  }
+
+  onOrganizationSubmitted(organization: Organization) {
+    if (organization.id == null) {
+      this.addOrganization(organization);
+    } else {
+      this.modifyOrganization(organization);
     }
   }
 }
