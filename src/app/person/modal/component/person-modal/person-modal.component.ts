@@ -60,16 +60,16 @@ export class PersonModalComponent implements OnInit {
       organizations: [],
       events: [],
     };
-    for (let orgIndex of this.form.get('organizations').value) {
-      for (let org of this.organizations) {
+    for (const orgIndex of this.form.get('organizations').value) {
+      for (const org of this.organizations) {
         if (org.id == orgIndex) {
           const orgToAdd: Organization = { id: org.id, name: org.name };
           newPerson.organizations.push(orgToAdd);
         }
       }
     }
-    for (let eventIndex of this.form.get('events').value) {
-      for (let event of this.events) {
+    for (const eventIndex of this.form.get('events').value) {
+      for (const event of this.events) {
         if (event.id == eventIndex) {
           const eventToAdd: Event = { id: event.id, name: event.name };
           newPerson.events.push(eventToAdd);

@@ -48,8 +48,8 @@ export class EventModalComponent implements OnInit {
       active: this.form.get('active').value,
       people: [],
     };
-    for (let personIndex of this.form.get('people').value) {
-      for (let person of this.people) {
+    for (const personIndex of this.form.get('people').value) {
+      for (const person of this.people) {
         if (person.id == personIndex) {
           const personToAdd: Person = {
             id: person.id,
