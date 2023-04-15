@@ -63,7 +63,7 @@
             >
               <option value="null">None</option>
               <ng-container *ngFor="let org of organizations">
-                <option [value]="org.id">
+                <option [value]="org.id" *ngIf="org.id != organization.id">
                   {{ org.name }}
                 </option>
               </ng-container>
