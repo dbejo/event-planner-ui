@@ -80,6 +80,21 @@
               </ng-container>
             </select>
           </div>
+          <div class="from-group m-3">
+            <label for="selectEvents">Events</label>
+            <select
+              class="form-select"
+              id="selectEvents"
+              formControlName="events"
+              [multiple]="true"
+            >
+              <ng-container *ngFor="let event of events">
+                <option [value]="event.id">
+                  {{ event.name }}
+                </option>
+              </ng-container>
+            </select>
+          </div>
           <div class="form-check m-3">
             <input
               type="checkbox"

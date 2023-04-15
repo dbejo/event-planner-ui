@@ -43,15 +43,17 @@ export class PersonComponent implements OnInit {
         `You are about to delete ${person.firstName} ${person.lastName}. Do you wish to proceed?`
       )
     ) {
-      this.personService.deletePerson(person.id).subscribe(
-        (response: void) => {
-          console.log(response);
-          this.getPeople();
-        },
-        (error: HttpErrorResponse) => {
-          alert(error.message);
-        }
-      );
+      this.personService
+        .deletePerson(person.id)
+        .pipe(switchMap(() => this.personService.getPeople()))
+        .subscribe({
+          complete: () => {
+            this.getPeople();
+          },
+          error: (error: HttpErrorResponse) => {
+            alert(error.message);
+          },
+        });
     }
   }
 
