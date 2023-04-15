@@ -1,10 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable, map } from 'rxjs';
 import { CustomResponse } from 'src/app/custom-response/custom-response';
 import { Organization } from 'src/app/organization/Organization';
-import { OrganizationService } from 'src/app/organization/service/organization.service';
 import { Person } from 'src/app/person/Person';
 import { PersonService } from 'src/app/person/service/person.service';
 
