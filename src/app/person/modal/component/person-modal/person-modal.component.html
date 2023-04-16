@@ -1,0 +1,121 @@
+<div class="modal fade" id="personModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ title }}</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="form" (ngSubmit)="submit()">
+          <div class="form-group m-3">
+            <label for="formGroupExampleInput">Name</label>
+            <div class="row">
+              <div class="col">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputFirstName"
+                  placeholder="First name"
+                  required
+                  formControlName="firstName"
+                  [ngClass]="
+                    form.get('firstName').invalid ? 'is-invalid' : 'is-valid'
+                  "
+                />
+              </div>
+              <div class="col">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputLastName"
+                  placeholder="Last name"
+                  required
+                  formControlName="lastName"
+                  [ngClass]="
+                    form.get('lastName').invalid ? 'is-invalid' : 'is-valid'
+                  "
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-group m-3">
+            <label for="inputEmail">Email address</label>
+            <input
+              type="email"
+              class="form-control"
+              id="inputEmail"
+              placeholder="Enter email"
+              required
+              formControlName="email"
+              [ngClass]="form.get('email').invalid ? 'is-invalid' : 'is-valid'"
+            />
+          </div>
+          <div class="form-group m-3">
+            <label for="inputNotes">Notes</label>
+            <textarea
+              rows="3"
+              class="form-control"
+              id="inputNotes"
+              placeholder="Enter notes"
+              formControlName="notes"
+            ></textarea>
+          </div>
+          <div class="form-group m-3">
+            <label for="selectOrganizations">Organizations</label>
+            <select
+              class="form-select"
+              id="selectOrganizations"
+              formControlName="organizations"
+              [multiple]="true"
+            >
+              <ng-container *ngFor="let organization of organizations">
+                <option [value]="organization.id">
+                  {{ organization.name }}
+                </option>
+              </ng-container>
+            </select>
+          </div>
+          <div class="from-group m-3">
+            <label for="selectEvents">Events</label>
+            <select
+              class="form-select"
+              id="selectEvents"
+              formControlName="events"
+              [multiple]="true"
+            >
+              <ng-container *ngFor="let event of events">
+                <option [value]="event.id">
+                  {{ event.name }}
+                </option>
+              </ng-container>
+            </select>
+          </div>
+          <div class="form-check m-3">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="checkActive"
+              formControlName="active"
+            />
+            <label class="form-check-label" for="checkActive">Active</label>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+              [ngClass]="form.valid ? 'enabled' : 'disabled'"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

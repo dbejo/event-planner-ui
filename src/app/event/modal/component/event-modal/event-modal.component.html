@@ -1,0 +1,105 @@
+<div class="modal fade" id="eventModal" tabindex="1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ title }}</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="form" (ngSubmit)="submit()">
+          <div class="form-group m-3">
+            <label for="inputName">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputName"
+              placeholder="Name"
+              required
+              formControlName="name"
+              [ngClass]="form.get('name').invalid ? 'is-invalid' : 'is-valid'"
+            />
+          </div>
+          <div class="form-group m-3">
+            <label for="inputDescription">Description</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputDescription"
+              placeholder="Description"
+              required
+              formControlName="description"
+              [ngClass]="
+                form.get('description').invalid ? 'is-invalid' : 'is-valid'
+              "
+            />
+          </div>
+          <div class="form-group m-3">
+            <label for="inputDate">Date</label>
+            <input
+              type="date"
+              class="form-control"
+              id="inputDate"
+              placeholder="Date"
+              required
+              formControlName="date"
+              [ngClass]="form.get('date').invalid ? 'is-invalid' : 'is-valid'"
+            />
+          </div>
+          <div class="form-group m-3">
+            <label for="inputLocation">Location</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputLocation"
+              placeholder="Location"
+              required
+              formControlName="location"
+              [ngClass]="
+                form.get('location').invalid ? 'is-invalid' : 'is-valid'
+              "
+            />
+          </div>
+          <div class="form-group m-3">
+            <label for="selectPeople">People</label>
+            <select
+              class="form-select"
+              id="selectPeople"
+              formControlName="people"
+              [multiple]="true"
+            >
+              <ng-container *ngFor="let person of people">
+                <option [value]="person.id">
+                  {{ person.firstName }} {{ person.lastName }}
+                </option>
+              </ng-container>
+            </select>
+          </div>
+          <div class="form-check m-3">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="checkActive"
+              formControlName="active"
+            />
+            <label class="form-check-label" for="checkActive">Active</label>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+              [ngClass]="form.valid ? 'enabled' : 'disabled'"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

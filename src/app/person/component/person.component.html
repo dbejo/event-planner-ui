@@ -1,26 +1,81 @@
 <div class="col-lg-8 mx-auto mt-5 p-3">
-    <header>
-        <h1>Person page</h1>
-    </header>
-    <main>
-        <div *ngFor="let person of this.people; let i = index">
-            <div class="row listHeader mt-3 mb-3" (mouseenter)="isHidden = !isHidden; hoveredItem = i"
-            (mouseleave)="isHidden = !isHidden; hoveredItem = null">
-                <div class="col-sm-11 my-auto" (click)="itemClickHandler(i)">
-                    <h2>{{person.firstName}} {{person.lastName}}</h2>
-                </div>
-                <div class="col-sm-1">
-                    <ng-container *ngIf="isHidden && hoveredItem == i">
-                        <button class="btn btn-outline-danger" (click)="deletePerson(person)"><i
-                                class="bi bi-trash"></i></button>
-                    </ng-container>
-                </div>
-            </div>
-            <div class="row" *ngIf="this.detailsToShow.includes(i)">
-                <div class="col-sm-4">Notes: {{person.notes}}</div>
-                <div class="col-sm-4">Email: {{person.personalEmail}}</div>
-                <div class="col-sm-4">Active: {{person.active}}</div>
-            </div>
+  <header>
+    <div class="row">
+      <div class="col-sm-11"><h1>Person page</h1></div>
+      <div class="col-sm-1 m-auto">
+        <button
+          class="btn btn-success"
+          data-bs-toggle="modal"
+          data-bs-target="#personModal"
+          (click)="openAddPersonModal()"
+        >
+          <i class="bi bi-plus-lg"></i>Add
+        </button>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div *ngFor="let person of this.people; let i = index">
+      <div
+        class="row listHeader mt-3 mb-3"
+        (mouseenter)="isHidden = !isHidden; hoveredItem = i"
+        (mouseleave)="isHidden = !isHidden; hoveredItem = null"
+      >
+        <div class="col-sm-10 my-auto" (click)="itemClickHandler(i)">
+          <h2>{{ person.firstName }} {{ person.lastName }}</h2>
         </div>
-    </main>
+        <div class="col-sm-1">
+          <ng-container *ngIf="isHidden && hoveredItem == i">
+            <button
+              class="btn btn-outline-primary w-100"
+              data-bs-toggle="modal"
+              data-bs-target="#personModal"
+              (click)="openModifyPersonModal(person)"
+            >
+              <i class="bi bi-pencil"></i>
+            </button>
+          </ng-container>
+        </div>
+        <div class="col-sm-1">
+          <ng-container *ngIf="isHidden && hoveredItem == i">
+            <button
+              class="btn btn-outline-danger w-100"
+              (click)="deletePerson(person)"
+            >
+              <i class="bi bi-trash"></i>
+            </button>
+          </ng-container>
+        </div>
+      </div>
+      <div class="row" *ngIf="this.detailsToShow.includes(i)">
+        <div class="col-sm-4">Notes: {{ person.notes }}</div>
+        <div class="col-sm-4">Email: {{ person.personalEmail }}</div>
+        <div class="col-sm-4">Active: {{ person.active }}</div>
+      </div>
+      <div class="row" *ngIf="this.detailsToShow.includes(i)">
+        <div class="col-sm" *ngIf="person.organizations.length != 0">
+          Organizations:
+          <ul class="list-group list-group-flush">
+            <li
+              class="list-group-item"
+              *ngFor="let organization of person.organizations"
+            >
+              {{ organization.name }}
+            </li>
+          </ul>
+        </div>
+        <div class="col-sm" *ngIf="person.events.length != 0">
+          Events:
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" *ngFor="let event of person.events">
+              {{ event.name }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <app-person-modal
+      (submitPerson)="onPersonSubmitted($event)"
+    ></app-person-modal>
+  </main>
 </div>
