@@ -31,10 +31,13 @@
             href="#"
             role="button"
             data-bs-toggle="dropdown"
-            >User</a
+            ><ng-container *ngIf="isLoggedIn(); else elseBlock">{{
+              userInfo?.info?.name
+            }}</ng-container
+            ><ng-template #elseBlock>User</ng-template></a
           >
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Login</a></li>
+            <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
           </ul>
         </li>
       </div>
