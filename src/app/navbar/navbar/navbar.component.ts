@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { GoogleApiService, UserInfo } from 'src/app/google-api.service';
 
 @Component({
