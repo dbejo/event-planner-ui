@@ -21,11 +21,14 @@
         (mouseenter)="isHidden = !isHidden; hoveredItem = i"
         (mouseleave)="isHidden = !isHidden; hoveredItem = null"
       >
-        <div class="col-sm-8 my-auto" (click)="itemClickHandler(i)">
+        <div class="col-sm-6 my-auto" (click)="itemClickHandler(i)">
           <h2>{{ event.name }}</h2>
         </div>
         <div class="col-sm-2 my-auto" (click)="itemClickHandler(i)">
-          {{ event.date | date : "fullDate" }}
+          Start: {{ event.startDate | date : "short" }}
+        </div>
+        <div class="col-sm-2 my-auto" (click)="itemClickHandler(i)">
+          End: {{ event.endDate | date : "short" }}
         </div>
         <div class="col-sm-1">
           <ng-container *ngIf="isHidden && hoveredItem == i">
@@ -54,16 +57,23 @@
         <div class="col-sm-4">Description: {{ event.description }}</div>
         <div class="col-sm-4">Location: {{ event.location }}</div>
         <div class="col-sm-4">Active: {{ event.active }}</div>
-        <div class="col-sm-4">Note: {{ event.note }}</div>
       </div>
       <ng-container *ngIf="this.detailsToShow.includes(i)">
         <div class="row">
           <div class="col-sm">
             <h3>Invited people</h3>
           </div>
+          <div class="col-sm">
+            <h3>Agenda</h3>
+          </div>
         </div>
-        <div class="row" *ngFor="let person of event.people">
-          <div class="col-sm">{{ person.firstName }} {{ person.lastName }}</div>
+        <div class="row" >
+          <ng-container *ngFor="let person of event.people">
+            <div class="col-sm">{{ person.firstName }} {{ person.lastName }}</div>
+          </ng-container>
+         <div class="col-sm">
+          {{ event.agenda }}
+         </div>
         </div>
       </ng-container>
     </div>

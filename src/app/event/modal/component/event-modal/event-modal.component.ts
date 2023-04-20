@@ -32,10 +32,12 @@ export class EventModalComponent implements OnInit {
     this.form = this.fb.group({
       name: [this.event?.name || '', Validators.required],
       description: [this.event?.description || '', Validators.required],
-      date: [this.event?.date || '', Validators.required],
+      startDate: [this.event?.startDate || '', Validators.required],
+      endDate: [this.event?.endDate || '', Validators.required],
       location: [this.event?.location || '', Validators.required],
       active: [this.event?.active || false],
       people: [this.event?.people?.map((person) => person.id) || []],
+      agenda: [this.event?.agenda || '']
     });
   }
 
@@ -44,10 +46,12 @@ export class EventModalComponent implements OnInit {
       id: this.event?.id || null,
       name: this.form.get('name').value,
       description: this.form.get('description').value,
-      date: this.form.get('date').value,
+      startDate: this.form.get('startDate').value,
+      endDate: this.form.get('endDate').value,
       location: this.form.get('location').value,
       active: this.form.get('active').value,
       people: [],
+      agenda: this.form.get('agenda').value,
     };
     for (const personIndex of this.form.get('people').value) {
       for (const person of this.people) {
