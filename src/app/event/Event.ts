@@ -8,4 +8,5 @@ export interface Event {
   date?: Date;
   active?: boolean;
   people?: Person[];
+  note?: string;
 }

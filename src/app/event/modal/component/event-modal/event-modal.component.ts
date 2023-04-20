@@ -7,11 +7,12 @@ import { Person } from 'src/app/person/Person';
 import { PersonService } from 'src/app/person/service/person.service';
 
 @Component({
-  selector: 'app-event-modal',
+  selector: 'app-event-modal', 
   templateUrl: './event-modal.component.html',
   styleUrls: ['./event-modal.component.css'],
 })
 export class EventModalComponent implements OnInit {
+  note: string;
   title: string;
   event?: Event;
   public people: Person[];
