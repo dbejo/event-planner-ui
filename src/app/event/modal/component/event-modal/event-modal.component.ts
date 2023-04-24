@@ -7,7 +7,7 @@ import { Person } from 'src/app/person/Person';
 import { PersonService } from 'src/app/person/service/person.service';
 
 @Component({
-  selector: 'app-event-modal', 
+  selector: 'app-event-modal',
   templateUrl: './event-modal.component.html',
   styleUrls: ['./event-modal.component.css'],
 })
@@ -35,9 +35,8 @@ export class EventModalComponent implements OnInit {
       startDate: [this.event?.startDate || '', Validators.required],
       endDate: [this.event?.endDate || '', Validators.required],
       location: [this.event?.location || '', Validators.required],
-      active: [this.event?.active || false],
       people: [this.event?.people?.map((person) => person.id) || []],
-      agenda: [this.event?.agenda || '']
+      agenda: [this.event?.agenda || ''],
     });
   }
 
@@ -49,7 +48,7 @@ export class EventModalComponent implements OnInit {
       startDate: this.form.get('startDate').value,
       endDate: this.form.get('endDate').value,
       location: this.form.get('location').value,
-      active: this.form.get('active').value,
+      active: true,
       people: [],
       agenda: this.form.get('agenda').value,
     };
