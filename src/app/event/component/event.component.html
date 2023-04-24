@@ -54,26 +54,22 @@
         </div>
       </div>
       <div class="row" *ngIf="this.detailsToShow.includes(i)">
-        <div class="col-sm-4">Description: {{ event.description }}</div>
-        <div class="col-sm-4">Location: {{ event.location }}</div>
-        <div class="col-sm-4">Active: {{ event.active }}</div>
+        <div class="col-sm-6">Description: {{ event.description }}</div>
+        <div class="col-sm-6">Location: {{ event.location }}</div>
+      </div>
+      <div class="row" *ngIf="this.detailsToShow.includes(i) && event.agenda" >
+        <div class="col-sm">Agenda: {{ event.agenda }}</div>
       </div>
       <ng-container *ngIf="this.detailsToShow.includes(i)">
         <div class="row">
           <div class="col-sm">
             <h3>Invited people</h3>
           </div>
-          <div class="col-sm">
-            <h3>Agenda</h3>
-          </div>
         </div>
         <div class="row" >
           <ng-container *ngFor="let person of event.people">
-            <div class="col-sm">{{ person.firstName }} {{ person.lastName }}</div>
+            <div class="col-sm">{{ person.firstName }} {{ person.lastName }} - <ng-container *ngFor="let org of person.organizations">{{org.name}} </ng-container></div>
           </ng-container>
-         <div class="col-sm">
-          {{ event.agenda }}
-         </div>
         </div>
       </ng-container>
     </div>

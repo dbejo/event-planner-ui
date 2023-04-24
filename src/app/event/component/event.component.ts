@@ -5,6 +5,8 @@ import { Event } from 'src/app/event/Event';
 import { HttpErrorResponse } from '@angular/common/http';
 import { EventModalComponent } from '../modal/component/event-modal/event-modal.component';
 import { switchMap } from 'rxjs';
+import { OrganizationService } from 'src/app/organization/service/organization.service';
+import { Person } from 'src/app/person/Person';
 
 @Component({
   selector: 'app-event',
@@ -19,10 +21,21 @@ export class EventComponent implements OnInit {
 
   @ViewChild(EventModalComponent) eventModal: EventModalComponent;
 
-  constructor(private eventService: EventService) {}
+  constructor(private eventService: EventService, private organizationService: OrganizationService) {}
 
   ngOnInit(): void {
     this.getEvents();
+  }
+  
+  public getOrgByPerson(person: Person): void {
+    this.organizationService.getByPersonId(person.id).subscribe({
+    next: (response: CustomResponse) => {
+      person.organizations = response.data.organizations;
+    },
+    error: (error: HttpErrorResponse) => {
+      alert(error.message);
+    },
+    });
   }
 
   public getEvents(): void {

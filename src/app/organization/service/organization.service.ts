@@ -35,4 +35,9 @@ export class OrganizationService {
       organization
     );
   }
+  getByPersonId(id: number): Observable<CustomResponse> {
+    return this.http.get<CustomResponse>(
+      `${this.API_URL}/api/v1/organization/${id}`
+    );
+  }
 }
