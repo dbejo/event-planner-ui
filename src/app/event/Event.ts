@@ -5,7 +5,9 @@ export interface Event {
   name: string;
   description?: string;
   location?: string;
-  date?: Date;
+  startDate?: Date;
+  endDate?: Date;
   active?: boolean;
   people?: Person[];
+  agenda?: string;
 }
