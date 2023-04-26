@@ -28,7 +28,9 @@ export class EventComponent implements OnInit {
   public getEvents(): void {
     this.eventService.getEvents().subscribe({
       next: (response: CustomResponse) => {
-        this.events = response.data.events;
+        this.events = response.data.events.sort((a, b) => {
+          return a.startDate > b.startDate ? 1 : -1;
+        });
       },
       error: (error: HttpErrorResponse) => {
         alert(error.message);
