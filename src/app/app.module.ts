@@ -12,9 +12,10 @@ import { PersonModalComponent } from './person/modal/component/person-modal/pers
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EventModalComponent } from './event/modal/component/event-modal/event-modal.component';
 import { OrganizationModalComponent } from './organization/modal/component/organization-modal/organization-modal.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, EventComponent, PersonComponent, OrganizationComponent, PersonModalComponent, EventModalComponent, OrganizationModalComponent],
+  declarations: [AppComponent, NavbarComponent, EventComponent, PersonComponent, OrganizationComponent, PersonModalComponent, EventModalComponent, OrganizationModalComponent, HomeComponent],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule,  AppRoutingModule, HttpClientModule, OAuthModule.forRoot()],
   providers: [],
   bootstrap: [AppComponent],

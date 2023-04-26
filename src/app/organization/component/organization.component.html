@@ -48,13 +48,20 @@
         </div>
       </div>
       <div class="row" *ngIf="this.detailsToShow.includes(i)">
-        <div class="col-sm-4">Address: {{ organization.address }}</div>
-        <div class="col-sm-4">Active: {{ organization.active }}</div>
-        <div class="col-sm-4">
-          Parent organization: {{ organization.parent?.name }}
+        <div class="col-sm-6">
+          <h3>Address:</h3>
+          {{ organization.address }}
+        </div>
+        <div class="col-sm-6" *ngIf="organization.parent">
+          <h3>Parent organization:</h3>
+          {{ organization.parent?.name }}
         </div>
       </div>
-      <ng-container *ngIf="this.detailsToShow.includes(i)">
+      <ng-container
+        *ngIf="
+          this.detailsToShow.includes(i) && organization.people.length != 0
+        "
+      >
         <div class="row">
           <div class="col-sm">
             <h3>Members</h3>
