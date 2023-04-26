@@ -29,7 +29,9 @@ export class PersonComponent implements OnInit {
   public getPeople(): void {
     this.personService.getPeople().subscribe({
       next: (response: CustomResponse) => {
-        this.people = response.data.people;
+        this.people = response.data.people.sort((a, b) => {
+          return a.firstName.toUpperCase() > b.firstName.toUpperCase() ? 1 : -1;
+        });
       },
       error: (error: HttpErrorResponse) => {
         alert(error.message);

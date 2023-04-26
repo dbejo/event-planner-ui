@@ -63,20 +63,11 @@
             >
               <option value="null">None</option>
               <ng-container *ngFor="let org of organizations">
-                <option [value]="org.id" *ngIf="org.id != organization.id">
+                <option [value]="org.id">
                   {{ org.name }}
                 </option>
               </ng-container>
             </select>
-          </div>
-          <div class="form-check m-3">
-            <input
-              type="checkbox"
-              class="form-check-input"
-              id="checkActive"
-              formControlName="active"
-            />
-            <label class="form-check-label" for="checkActive">Active</label>
           </div>
           <div class="modal-footer">
             <button

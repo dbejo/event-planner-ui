@@ -34,7 +34,6 @@ export class OrganizationModalComponent {
       address: [this.organization?.address || '', Validators.required],
       people: [this.organization?.people?.map((person) => person.id) || []],
       parent: [this.organization?.parent?.id || null],
-      active: [this.organization?.active || false],
     });
   }
 
@@ -47,7 +46,7 @@ export class OrganizationModalComponent {
       topLevel: parent.id == null ? true : false,
       address: this.form.get('address').value,
       people: [],
-      active: this.form.get('active').value,
+      active: true,
     };
     for (const personIndex of this.form.get('people').value) {
       for (const person of this.people) {

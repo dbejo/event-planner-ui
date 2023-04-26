@@ -48,13 +48,18 @@
         </div>
       </div>
       <div class="row" *ngIf="this.detailsToShow.includes(i)">
-        <div class="col-sm-4">Notes: {{ person.notes }}</div>
-        <div class="col-sm-4">Email: {{ person.personalEmail }}</div>
-        <div class="col-sm-4">Active: {{ person.active }}</div>
+        <div class="col-sm-6">
+          <h3>Notes:</h3>
+          {{ person.notes }}
+        </div>
+        <div class="col-sm-6">
+          <h3>Email:</h3>
+          {{ person.personalEmail }}
+        </div>
       </div>
       <div class="row" *ngIf="this.detailsToShow.includes(i)">
         <div class="col-sm" *ngIf="person.organizations.length != 0">
-          Organizations:
+          <h3>Organizations:</h3>
           <ul class="list-group list-group-flush">
             <li
               class="list-group-item"
@@ -65,7 +70,7 @@
           </ul>
         </div>
         <div class="col-sm" *ngIf="person.events.length != 0">
-          Events:
+          <h3>Events:</h3>
           <ul class="list-group list-group-flush">
             <li class="list-group-item" *ngFor="let event of person.events">
               {{ event.name }}

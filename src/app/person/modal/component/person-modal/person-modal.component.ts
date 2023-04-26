@@ -45,7 +45,6 @@ export class PersonModalComponent implements OnInit {
       notes: [this.person?.notes || ''],
       organizations: [this.person?.organizations?.map((org) => org.id) || []],
       events: [this.person?.events?.map((event) => event.id) || []],
-      active: [this.person?.active || false],
     });
   }
 
@@ -56,7 +55,7 @@ export class PersonModalComponent implements OnInit {
       lastName: this.form.get('lastName').value,
       notes: this.form.get('notes').value,
       personalEmail: this.form.get('email').value,
-      active: this.form.get('active').value,
+      active: true,
       organizations: [],
       events: [],
     };
